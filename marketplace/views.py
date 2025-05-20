@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.shortcuts import render
+from .models import ClothingItem
 from .forms import ClothingItemForm
 from django.contrib.auth.decorators import login_required
 
@@ -14,4 +16,9 @@ def add_clothing_item(request):
     else:
         form = ClothingItemForm()
     return render(request, 'store/add_clothing_item.html', {'form': form})
+
+
+def item_list(request):
+    items = ClothingItem.objects.all().order_by('-created_at')
+    return render(request, 'marketplace/item_list.html', {'items': items})
 
