@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ item.title }}</h1>
+  <p><strong>Description:</strong> {{ item.description }}</p>
+  <p><strong>Price:</strong> £{{ item.price }}</p>
+  <p><strong>Seller:</strong> {{ item.seller.username }}</p>
+  {% if item.image %}
+    <img src="{{ item.image.url }}" alt="{{ item.title }}" style="max-width: 300px;">
+  {% endif %}
+  <p><a href="{% url 'item_list' %}">Back to items</a></p>
+{% endblock %}
