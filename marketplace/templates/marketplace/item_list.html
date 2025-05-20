@@ -9,11 +9,17 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {% for item in items %}
             <div class="bg-white rounded-xl shadow hover:shadow-lg transition duration-200 overflow-hidden">
-                <img src="{{ item.image.url }}" alt="{{ item.title }}" class="w-full h-60 object-cover">
+                {% if item.image %}
+                <a href="{% url 'item_detail' item.pk %}">
+                    <img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-full h-60 object-cover">
+                </a>
+                {% endif %}
                 <div class="p-4">
                     <h3 class="text-lg font-semibold">{{ item.title }}</h3>
                     <p class="text-gray-500">£{{ item.price }}</p>
-                    <a href="#" class="text-purple-600 hover:underline text-sm">View details</a>
+                    <a href="{% url 'item_detail' item.pk %}" class="text-purple-600 hover:underline text-sm">
+                        View details
+                    </a>
                 </div>
             </div>
         {% empty %}

@@ -11,18 +11,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    {% if user.is_authenticated %}
-        <div>
-            <h4>Notifications</h4>
-            <ul>
-                {% for note in user.notifications.filter(is_read=False).order_by('-created_at') %}
-                    <li>{{ note.message }} - {{ note.created_at|date:"M d, H:i" }}</li>
-                {% empty %}
-                    <li>No new notifications.</li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
 
     <div id="wrapper" class="min-h-screen bg-gray-50">
         <!-- Header -->
