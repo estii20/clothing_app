@@ -3,7 +3,61 @@
 {% block extra_title %}| Shop{% endblock %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-8">
+<!-- Hero Section -->
+    <section id="hero" class="pt-20 h-[600px]">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap items-center">
+                <div class="w-full lg:w-1/2 py-12">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6">Buy & Sell Quality Kids Clothing</h1>
+                    <p class="text-gray-600 text-lg mb-8">
+                        Join our community of parents who save money and help the environment by giving pre-loved clothes a second life.</p>
+                    <div class="flex space-x-4">
+                        <span  class="bg-purple-600 text-white px-8 py-3 rounded-full hover:bg-purple-700 cursor-pointer">Start Shopping</span>
+                        <span  class="bg-gray-200 text-gray-700 px-8 py-3 rounded-full hover:bg-gray-300 cursor-pointer">Sell Items</span>
+                    </div>
+                </div>
+                <div class="w-full lg:w-1/2">
+                    <img class="rounded-2xl" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/df06d399be-b27bbd6c5e84e793f572.png" alt="happy children playing and wearing colorful clothes, lifestyle photography" >
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Hero Section -->
+     <!-- Categories -->
+    <section id="categories" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">Shop by Category</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <a href="#" class="category-card group">
+                    <div class="bg-purple-100 rounded-xl p-6 text-center transition-all group-hover:bg-purple-200">
+                        <i class="fa-solid fa-baby text-4xl text-purple-600 mb-4"></i>
+                        <h3 class="font-semibold">Baby (0-24m)</h3>
+                    </div>
+                </a>
+                <a href="#" class="category-card group">
+                    <div class="bg-blue-100 rounded-xl p-6 text-center transition-all group-hover:bg-blue-200">
+                        <i class="fa-solid fa-child text-4xl text-blue-600 mb-4"></i>
+                        <h3 class="font-semibold">Toddler (2-4y)</h3>
+                    </div>
+                </a>
+                <a href="#" class="category-card group">
+                    <div class="bg-pink-100 rounded-xl p-6 text-center transition-all group-hover:bg-pink-200">
+                        <i class="fa-solid fa-child-reaching text-4xl text-pink-600 mb-4"></i>
+                        <h3 class="font-semibold">Kids (4-7y)</h3>
+                    </div>
+                </a>
+                <a href="#" class="category-card group">
+                    <div class="bg-green-100 rounded-xl p-6 text-center transition-all group-hover:bg-green-200">
+                        <i class="fa-solid fa-children text-4xl text-green-600 mb-4"></i>
+                        <h3 class="font-semibold">Big Kids (8-12y)</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- End Categories -->
+    <!-- Featured Products -->
+    <div class="container mx-auto px-4 py-8">
     <h2 class="text-2xl font-bold mb-6">Browse Clothing</h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -26,5 +80,49 @@
             <p>No items available.</p>
         {% endfor %}
     </div>
-</div>
+    </div>
+    <!-- End Featured Products -->
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">How It Works</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div id="step-1" class="text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-camera text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="font-semibold mb-4">1. List Your Items</h3>
+                    <p class="text-gray-600">Take photos and list your kids' outgrown clothes in minutes</p>
+                </div>
+                <div id="step-2" class="text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-box text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="font-semibold mb-4">2. Ship or Buy</h3>
+                    <p class="text-gray-600">Ship sold items or shop for quality pre-loved clothing</p>
+                </div>
+                <div id="step-3" class="text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-wallet text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="font-semibold mb-4">3. Earn or Save</h3>
+                    <p class="text-gray-600">Make money from outgrown clothes or save on your purchases</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End How It Works -->
+
+    <!-- CTA Section -->
+    <section id="cta" class="py-16 bg-purple-600">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6 text-white">Ready to Start?</h2>
+            <p class="text-purple-100 mb-8 max-w-2xl mx-auto">Join thousands of parents who are making sustainable choices while saving money.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <span  class="bg-white text-purple-600 px-8 py-3 rounded-full hover:bg-gray-100 cursor-pointer">Create Account</span>
+                <span  class="border-2 border-white text-white px-8 py-3 rounded-full hover:bg-purple-700 cursor-pointer">Learn More</span>
+            </div>
+        </div>
+    </section>
+    <!-- End CTA Section -->
 {% endblock %}
