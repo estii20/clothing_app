@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Sell Items Form Section -->
+<section id="sell-items-form" class="pt-24 pb-16">
+  <div class="container mx-auto px-4">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="text-3xl font-bold mb-8">List Your Item for Sale</h1>
+      <form method="POST" enctype="multipart/form-data" class="space-y-8">
+        {% csrf_token %}
+        
+        <!-- Main Image -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Main Photo</label>
+          {{ item_form.image }}
+        </div>
+
+        <!-- Additional Images (multiple upload) -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Additional Photos</label>
+          <input type="file" name="images" multiple class="mt-1 block w-full" />
+          <p class="text-xs text-gray-500 mt-1">You can select multiple files.</p>
+        </div>
+
+        <!-- Title -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Title</label>
+          {{ item_form.title }}
+        </div>
+
+        <!-- Category -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Category</label>
+          {{ item_form.category }}
+        </div>
+
+        <!-- Condition -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Condition</label>
+          {{ item_form.condition }}
+        </div>
+
+        <!-- Size -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Size</label>
+          {{ item_form.size }}
+        </div>
+
+        <!-- Price -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Price</label>
+          {{ item_form.price }}
+        </div>
+
+        <!-- Description -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Description</label>
+          {{ item_form.description }}
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="bg-purple-600 text-white px-6 py-3 rounded-md hover:bg-purple-700 transition">
+          List Item
+        </button>
+      </form>
+
+
+      <div class="mt-8">
+        <h2 class="text-xl font-bold mb-4">Tips for Selling</h2>
+        <ul class="list-disc list-inside space-y-2">
+          <li>Use clear and bright photos.</li>
+          <li>Provide accurate descriptions.</li>
+          <li>Set a fair price based on condition and brand.</li>
+          <li>Be responsive to inquiries.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

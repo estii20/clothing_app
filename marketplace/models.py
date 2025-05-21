@@ -31,3 +31,10 @@ class ClothingItem(models.Model):
     def __str__(self):
         return self.title
 
+
+class ClothingImage(models.Model):
+    item = models.ForeignKey('ClothingItem', on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='clothing_images/extra/')
+
+    def __str__(self):
+        return f"Image for {self.item.title}"
