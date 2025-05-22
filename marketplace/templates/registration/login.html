@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<main class="pt-16 px-4 max-w-md mx-auto">
+  <section class="text-center py-8">
+    <div class="w-20 h-20 mx-auto mb-4">
+      <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/c8369c86b8-logo.png" alt="KidsSwap Logo" class="w-full h-full object-contain">
+    </div>
+    <h1 class="text-2xl font-bold text-gray-800 mb-2">Welcome to KidsSwap</h1>
+    <p class="text-gray-600 text-sm mb-8">Buy, sell, and swap quality kids' clothing</p>
+  </section>
+
+  <form method="post" class="space-y-4" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    
+    <div class="flex items-center justify-between">
+      <label class="flex items-center">
+        {{ form.remember_me }} 
+        <span class="ml-2 text-sm text-gray-600">Remember me</span>
+      </label>
+      <a href="{% url 'password_reset' %}" class="text-sm text-purple-600 hover:text-purple-500">Forgot Password?</a>
+    </div>
+
+    <button type="submit" class="w-full bg-purple-600 text-white py-3 rounded-lg font-medium hover:bg-purple-700">
+      Sign In
+    </button>
+  </form>
+</main>
+
+{% endblock %}
