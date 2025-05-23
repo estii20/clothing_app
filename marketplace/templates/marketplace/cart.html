@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Main Content -->
+<main class="pt-16 pb-32">
+  <section id="cart-items" class="px-4 py-6">
+    {% for item in cart_items %}
+    <div class="flex bg-white rounded-lg shadow-sm mb-4 p-3">
+      <img class="w-24 h-24 object-cover rounded-lg" src="{{ item.image.url }}" alt="{{ item.title }}">
+      <div class="flex-1 ml-4">
+        <div class="flex justify-between">
+          <h3 class="font-medium">{{ item.title }}</h3>
+        </div>
+        <p class="text-sm text-gray-500">Size: {{ item.size }}</p>
+        <div class="flex justify-between items-center mt-2">
+          <div class="flex items-center space-x-2">
+            <!-- REMOVE -->
+            <form method="POST" action="{% url 'remove_from_cart' item.id %}">
+              {% csrf_token %}
+              <button class="text-gray-400"><i class="fa-solid fa-trash-alt"></i></button>
+            </form>
+            <!-- QUANTITY -->
+            <form method="POST" action="{% url 'update_cart_quantity' item.id %}">
+              {% csrf_token %}
+              <button name="action" value="decrease" class="..."><i class="fa-solid fa-minus"></i></button>
+              <span class="text-sm">{{ item.quantity }}</span>
+              <button name="action" value="increase" class="..."><i class="fa-solid fa-plus"></i></button>
+            </form>
+          </div>
+          <p class="font-semibold text-purple-600">${{ item.total_price }}</p>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p class="text-center text-gray-500">Your cart is empty.</p>
+    {% endfor %}
+    </section>
+
+    <!-- Bottom Checkout Button -->
+    <div class=" left-0 right-0 p-4 bg-white border-t">
+    <div class="max-w-4xl mx-auto">
+        <button
+        class="w-full bg-purple-600 text-white py-4 md:py-3 rounded-lg text-base md:text-lg font-semibold hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 transition"
+        aria-label="Proceed to payment and complete purchase"
+        >
+        Pay Now • ${{ cart_total }}
+        </button>
+    </div>
+    </div>
+
+    <!-- Payment & Summary (static for now) -->
+  <!-- Add your sections for payment + summary here -->
+</div>
+</main>
+
+{% endblock %}
