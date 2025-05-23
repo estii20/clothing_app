@@ -8,7 +8,10 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView
-from django.views.generic import FormView
+import json
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+import json
 
 
 @login_required
@@ -130,3 +133,25 @@ def update_cart_quantity(request, item_id):
 
     return redirect('cart')
 
+
+@require_POST
+def process_payment(request):
+    # Simulate payment processing...
+    request.session['cart'] = {}  # Clear the cart
+    return redirect('order_confirmation')  # Name this URL in your urls.py
+
+
+def order_confirmation(request):
+    return render(request, 'marketplace/order_confirmation.html')
+
+
+@require_POST
+def process_payment(request):
+    try:
+        data = json.loads(request.body)
+        if data.get('confirm'):
+            request.session['cart'] = {}
+            return JsonResponse({'status': 'ok'})
+    except Exception:
+        pass
+    return JsonResponse({'status': 'error'}, status=400)
