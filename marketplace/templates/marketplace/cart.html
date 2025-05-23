@@ -37,20 +37,62 @@
     </section>
 
     <!-- Bottom Checkout Button -->
-    <div class=" left-0 right-0 p-4 bg-white border-t">
-    <div class="max-w-4xl mx-auto">
-        <button
-        class="w-full bg-purple-600 text-white py-4 md:py-3 rounded-lg text-base md:text-lg font-semibold hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 transition"
-        aria-label="Proceed to payment and complete purchase"
-        >
-        Pay Now • ${{ cart_total }}
-        </button>
-    </div>
+    <div class="left-0 right-0 p-4 bg-white border-t">
+    <button id="pay-now-btn"
+            class="w-full bg-purple-600 text-white py-4 rounded-lg font-semibold flex items-center justify-center"
+            onclick="processPayment()" 
+            aria-label="Pay securely">
+        <span id="pay-now-text">Pay Now • ${{ cart_total }}</span>
+        <svg id="pay-spinner" class="hidden ml-3 h-5 w-5 animate-spin text-white"
+            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor"
+                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z">
+        </path>
+        </svg>
+    </button>
     </div>
 
-    <!-- Payment & Summary (static for now) -->
-  <!-- Add your sections for payment + summary here -->
-</div>
-</main>
+    <script>
+    function processPayment() {
+        const btn = document.getElementById('pay-now-btn');
+        const text = document.getElementById('pay-now-text');
+        const spinner = document.getElementById('pay-spinner');
+
+        // Disable button & show spinner
+        btn.disabled = true;
+        text.textContent = "Processing...";
+        spinner.classList.remove('hidden');
+
+        fetch("{% url 'process_payment' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}',
+        },
+        body: JSON.stringify({ confirm: true }),
+        })
+        .then(res => res.json())
+        .then(data => {
+        if (data.status === 'ok') {
+            setTimeout(() => {
+            window.location.href = "{% url 'order_confirmation' %}";
+            }, 2000); // 2-second delay
+        } else {
+            alert('Something went wrong. Please try again.');
+            spinner.classList.add('hidden');
+            text.textContent = "Pay Now • ${{ cart_total }}";
+            btn.disabled = false;
+        }
+        })
+        .catch(err => {
+        console.error(err);
+        alert('Payment failed.');
+        spinner.classList.add('hidden');
+        text.textContent = "Pay Now • ${{ cart_total }}";
+        btn.disabled = false;
+        });
+    }
+    </script>
 
 {% endblock %}
