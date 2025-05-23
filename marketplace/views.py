@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
+from django.views.decorators.http import require_POST
 from .models import ClothingItem, ClothingImage
 from .forms import ClothingItemForm, CustomLoginForm, CustomSignupForm
 from django.contrib.auth.decorators import login_required
@@ -68,3 +68,65 @@ def signup_view(request):
     else:
         form = CustomSignupForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+
+def cart_view(request):
+    cart = request.session.get('cart', {})
+    cart_items = []
+    total = 0
+
+    for item_id, item_data in cart.items():
+        item = get_object_or_404(ClothingItem, id=item_id)
+        quantity = item_data['quantity']
+        item_total = item.price * quantity
+        cart_items.append({
+            'id': item.id,
+            'title': item.title,
+            'image': item.image,
+            'size': item.size,
+            'price': item.price,
+            'quantity': quantity,
+            'total_price': item_total,
+        })
+        total += item_total
+
+    return render(request, 'marketplace/cart.html', {
+        'cart_items': cart_items,
+        'cart_total': total,
+    })
+
+
+@require_POST
+def add_to_cart(request, item_id):
+    cart = request.session.get('cart', {})
+    item_id = str(item_id)
+    cart[item_id] = {'quantity': cart.get(item_id, {}).get('quantity', 0) + 1}
+    request.session['cart'] = cart
+    return redirect('cart')
+
+
+@require_POST
+def remove_from_cart(request, item_id):
+    cart = request.session.get('cart', {})
+    item_id = str(item_id)
+    if item_id in cart:
+        del cart[item_id]
+        request.session['cart'] = cart
+    return redirect('cart')
+
+
+@require_POST
+def update_cart_quantity(request, item_id):
+    action = request.POST.get('action')
+    cart = request.session.get('cart', {})
+    item_id = str(item_id)
+
+    if item_id in cart:
+        if action == 'increase':
+            cart[item_id]['quantity'] += 1
+        elif action == 'decrease':
+            cart[item_id]['quantity'] = max(1, cart[item_id]['quantity'] - 1)
+        request.session['cart'] = cart
+
+    return redirect('cart')
+
