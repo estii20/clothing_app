@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.decorators.http import require_POST
-from .models import ClothingItem, ClothingImage
+from .models import ClothingItem, ClothingImage, ShippingAddress
 from .forms import ClothingItemForm, CustomLoginForm, CustomSignupForm, ShippingAddressForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages 
@@ -78,6 +78,10 @@ def cart_view(request):
     cart_items = []
     total = 0
 
+    latest_address = None
+    if request.user.is_authenticated:
+        latest_address = ShippingAddress.objects.filter(user=request.user).last()
+
     for item_id, item_data in cart.items():
         item = get_object_or_404(ClothingItem, id=item_id)
         quantity = item_data['quantity']
@@ -96,6 +100,7 @@ def cart_view(request):
     return render(request, 'marketplace/cart.html', {
         'cart_items': cart_items,
         'cart_total': total,
+        'latest_address': latest_address, 
     })
 
 
@@ -165,8 +170,8 @@ def add_shipping_address(request):
             shipping_address = form.save(commit=False)
             shipping_address.user = request.user
             shipping_address.save()
-            return redirect('cart')  # Or redirect to payment
+            return redirect('cart')  # Or wherever you want to go next
     else:
         form = ShippingAddressForm()
 
-    return render(request, 'add_shipping_address.html', {'form': form})
+    return render(request, 'marketplace/add_shipping_address.html', {'form': form})
