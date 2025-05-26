@@ -3,6 +3,35 @@
 {% block content %}
 <!-- Main Content -->
 <main class="pt-16 pb-32">
+    <!-- Shipping Address Display -->
+    {% if latest_address %}
+    <section class="px-4 py-4 bg-gray-100 rounded-lg shadow mb-6">
+      <h2 class="text-lg font-semibold mb-2 text-purple-700">Shipping To</h2>
+      <p class="text-sm">{{ latest_address.full_name }}</p>
+      <p class="text-sm">{{ latest_address.address_line1 }}</p>
+      {% if latest_address.address_line2 %}
+        <p class="text-sm">{{ latest_address.address_line2 }}</p>
+      {% endif %}
+      <p class="text-sm">{{ latest_address.city }}, {{ latest_address.state }} {{ latest_address.postal_code }}</p>
+      <p class="text-sm">{{ latest_address.country }}</p>
+      <p class="text-sm">Phone: {{ latest_address.phone_number }}</p>
+      <a href="{% url 'add_shipping_address' %}" class="text-sm text-purple-600 hover:underline">Change Address</a>
+    </section>
+    {% else %}
+    <section class="px-4 py-4 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-700 rounded mb-6">
+      <p>No shipping address found. <a href="{% url 'add_shipping_address' %}" class="underline">Add one now</a>.</p>
+    </section>
+    {% endif %}
+
+    <!-- Cart Items Section -->
+    <section class="px-4 py-6 bg-white rounded-lg shadow mb-6">
+      <h2 class="text-2xl font-semibold mb-4">Your Cart</h2>
+      {% if cart_items %}
+        <p class="text-sm text-gray-600 mb-4">You have {{ cart_items|length }} item(s) in your cart.</p>
+      {% else %}
+        <p class="text-sm text-gray-600 mb-4">Your cart is empty.</p>
+      {% endif %}
+    </section>
   <section id="cart-items" class="px-4 py-6">
     {% for item in cart_items %}
     <div class="flex bg-white rounded-lg shadow-sm mb-4 p-3">
@@ -39,7 +68,7 @@
     <!-- Bottom Checkout Button -->
     <div class="left-0 right-0 p-4 bg-white border-t">
     <button id="pay-now-btn"
-            class="w-full bg-purple-600 text-white py-4 rounded-lg font-semibold flex items-center justify-center"
+            class="bg-purple-600 text-white py-4 rounded-lg font-semibold flex items-center justify-center"
             onclick="processPayment()" 
             aria-label="Pay securely">
         <span id="pay-now-text">Pay Now • ${{ cart_total }}</span>
