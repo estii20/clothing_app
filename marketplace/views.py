@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.decorators.http import require_POST
 from .models import ClothingItem, ClothingImage
-from .forms import ClothingItemForm, CustomLoginForm, CustomSignupForm
+from .forms import ClothingItemForm, CustomLoginForm, CustomSignupForm, ShippingAddressForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages 
 from django.contrib.auth.forms import UserCreationForm
@@ -155,3 +155,18 @@ def process_payment(request):
     except Exception:
         pass
     return JsonResponse({'status': 'error'}, status=400)
+
+
+@login_required
+def add_shipping_address(request):
+    if request.method == 'POST':
+        form = ShippingAddressForm(request.POST)
+        if form.is_valid():
+            shipping_address = form.save(commit=False)
+            shipping_address.user = request.user
+            shipping_address.save()
+            return redirect('cart')  # Or redirect to payment
+    else:
+        form = ShippingAddressForm()
+
+    return render(request, 'add_shipping_address.html', {'form': form})

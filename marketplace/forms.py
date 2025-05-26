@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
-from .models import ClothingItem
+from .models import ClothingItem, ShippingAddress
 
 class ClothingItemForm(forms.ModelForm):
     class Meta:
@@ -48,3 +48,19 @@ class CustomSignupForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+class ShippingAddressForm(forms.ModelForm):
+    class Meta:
+        model = ShippingAddress
+        fields = ['full_name', 'address_line1', 'address_line2', 'city', 'state', 'postal_code', 'country', 'phone_number']
+        widgets = {
+            'full_name': forms.TextInput(attrs={'class': 'form-input'}),
+            'address_line1': forms.TextInput(attrs={'class': 'form-input'}),
+            'address_line2': forms.TextInput(attrs={'class': 'form-input'}),
+            'city': forms.TextInput(attrs={'class': 'form-input'}),
+            'state': forms.TextInput(attrs={'class': 'form-input'}),
+            'postal_code': forms.TextInput(attrs={'class': 'form-input'}),
+            'country': forms.TextInput(attrs={'class': 'form-input'}),
+            'phone_number': forms.TextInput(attrs={'class': 'form-input'}),
+        }

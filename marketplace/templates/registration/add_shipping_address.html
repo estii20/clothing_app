@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto p-6 bg-white shadow rounded-lg mt-12">
+    <h2 class="text-2xl font-bold mb-4">Enter Shipping Address</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="mt-4 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700">Save Address</button>
+    </form>
+</div>
+{% endblock %}
