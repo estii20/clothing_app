@@ -26,7 +26,8 @@ def create_clothing_item(request):
             for img in request.FILES.getlist('images'):
                 ClothingImage.objects.create(item=item, image=img)
 
-            return redirect('item_detail', pk=item.pk)
+            return redirect('item_detail', item_id=item.pk)
+
     else:
         item_form = ClothingItemForm()
 
@@ -36,8 +37,23 @@ def create_clothing_item(request):
 
 
 def item_list(request):
-    items = ClothingItem.objects.all().order_by('-created_at')
-    return render(request, 'marketplace/item_list.html', {'items': items})
+    category = request.GET.get('category')
+    items = ClothingItem.objects.all()
+
+    if category == 'baby':
+        items = items.filter(age_group='baby')
+    elif category == 'toddler':
+        items = items.filter(age_group='toddler')
+    elif category == 'kids':
+        items = items.filter(age_group='kids')
+    elif category == 'big_kids':
+        items = items.filter(age_group='big_kids')
+
+    context = {
+        'items': items,
+        'selected_category': category,
+    }
+    return render(request, 'marketplace/item_list.html', context)
 
 
 def item_detail(request, item_id):

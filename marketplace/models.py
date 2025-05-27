@@ -18,6 +18,13 @@ class ClothingItem(models.Model):
         ('Well Loved', 'Well Loved'),
     ]
 
+    AGE_GROUP_CHOICES = [
+        ('baby', 'Baby (0-24m)'),
+        ('toddler', 'Toddler (2-4y)'),
+        ('kids', 'Kids (4-7y)'),
+        ('big_kids', 'Big Kids (8-12y)'),
+    ]
+
     seller = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     description = models.TextField()
@@ -26,6 +33,7 @@ class ClothingItem(models.Model):
     condition = models.CharField(max_length=20, choices=CONDITION_CHOICES)
     size = models.CharField(max_length=20)
     image = models.ImageField(upload_to='clothing_images/')
+    age_group = models.CharField(max_length=20, choices=AGE_GROUP_CHOICES, default='kids')
     is_featured = models.BooleanField(default=False)  
     created_at = models.DateTimeField(auto_now_add=True)
 

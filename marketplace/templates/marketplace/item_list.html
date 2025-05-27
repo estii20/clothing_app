@@ -29,25 +29,25 @@
         <div class="container mx-auto px-4">
             <h2 class="text-3xl font-bold mb-12 text-center">Shop by Category</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <a href="#" class="category-card group">
+                <a href="?category=baby" class="category-card group">
                     <div class="bg-purple-100 rounded-xl p-6 text-center transition-all group-hover:bg-purple-200">
                         <i class="fa-solid fa-baby text-4xl text-purple-600 mb-4"></i>
                         <h3 class="font-semibold">Baby (0-24m)</h3>
                     </div>
                 </a>
-                <a href="#" class="category-card group">
+                <a href="?category=toddler" class="category-card group">
                     <div class="bg-blue-100 rounded-xl p-6 text-center transition-all group-hover:bg-blue-200">
                         <i class="fa-solid fa-child text-4xl text-blue-600 mb-4"></i>
                         <h3 class="font-semibold">Toddler (2-4y)</h3>
                     </div>
                 </a>
-                <a href="#" class="category-card group">
+                <a href="?category=kids" class="category-card group">
                     <div class="bg-pink-100 rounded-xl p-6 text-center transition-all group-hover:bg-pink-200">
                         <i class="fa-solid fa-child-reaching text-4xl text-pink-600 mb-4"></i>
                         <h3 class="font-semibold">Kids (4-7y)</h3>
                     </div>
                 </a>
-                <a href="#" class="category-card group">
+                <a href="?category=big_kids" class="category-card group">
                     <div class="bg-green-100 rounded-xl p-6 text-center transition-all group-hover:bg-green-200">
                         <i class="fa-solid fa-children text-4xl text-green-600 mb-4"></i>
                         <h3 class="font-semibold">Big Kids (8-12y)</h3>
@@ -57,6 +57,7 @@
         </div>
     </section>
     <!-- End Categories -->
+
     <!-- Featured Products -->
     <div class="container mx-auto px-4 py-8">
     <h2 class="text-2xl font-bold mb-6">Browse Clothing</h2>
@@ -118,10 +119,13 @@
     <section id="cta" class="py-16 bg-purple-600">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-3xl font-bold mb-6 text-white">Ready to Start?</h2>
-            <p class="text-purple-100 mb-8 max-w-2xl mx-auto">Join thousands of parents who are making sustainable choices while saving money.</p>
+            <p class="text-purple-100 mb-8 max-w-2xl mx-auto">Join thousands of parents who are making 
+                sustainable choices while saving money.</p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <span  class="bg-white text-purple-600 px-8 py-3 rounded-full hover:bg-gray-100 cursor-pointer">Create Account</span>
-                <span  class="border-2 border-white text-white px-8 py-3 rounded-full hover:bg-purple-700 cursor-pointer">Learn More</span>
+                <span  class="bg-white text-purple-600 px-8 py-3 rounded-full hover:bg-gray-100 cursor-pointer">
+                    <a href="{% url 'login' %}"> Create Account></a></span>
+                <span  class="border-2 border-white text-white px-8 py-3 rounded-full hover:bg-purple-700 cursor-pointer">
+                    Learn More</span>
             </div>
         </div>
     </section>
