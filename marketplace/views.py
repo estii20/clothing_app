@@ -278,3 +278,7 @@ def toggle_wishlist(request, item_id):
         wishlist_item.delete()
         return JsonResponse({'status': 'removed'})
     return JsonResponse({'status': 'added'})
+
+
+def about_view(request):
+    return render(request, 'marketplace/about.html')
