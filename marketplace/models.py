@@ -82,3 +82,15 @@ class OrderItem(models.Model):
 
     def get_total_price(self):
         return self.quantity * self.price
+    
+
+class WishlistItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    item = models.ForeignKey(ClothingItem, on_delete=models.CASCADE)
+    added_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'item')  # Prevent duplicate entries
+
+    def __str__(self):
+        return f"{self.user.username} - {self.item.title}"
