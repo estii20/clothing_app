@@ -65,9 +65,14 @@
                 {% csrf_token %}
                 <button type="submit" class="btn">Add to Cart</button>
               </form>
-              <button class="bg-white text-purple-600 border border-purple-600 px-3 py-1 rounded-full text-sm w-1/2">
-                Wishlist
-              </button>
+              {% for related in related_items %}
+                  <a href="#" onclick="toggleWishlist('{{ related.id }}')">
+                      <i class="fa-solid fa-heart 
+                                {% if related.id in wishlist_ids %}text-red-500{% else %}text-gray-600{% endif %}" 
+                        id="wishlist-icon-{{ related.id }}">
+                      </i>
+                  </a>
+              {% endfor %}
             </div>
           </div>
         </div>
@@ -84,4 +89,29 @@
     </div>
   </div>
 </section>
+
+<script>
+function toggleWishlist(itemId) {
+    fetch(`/wishlist/toggle/${itemId}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': '{{ csrf_token }}',
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        const icon = document.getElementById(`wishlist-icon-${itemId}`);
+        if (data.status === 'added') {
+            icon.classList.remove('text-gray-600');
+            icon.classList.add('text-red-500');
+        } else if (data.status === 'removed') {
+            icon.classList.remove('text-red-500');
+            icon.classList.add('text-gray-600');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+</script>
 {% endblock %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.decorators.http import require_POST
-from .models import ClothingItem, ClothingImage, ShippingAddress, Order, OrderItem
+from .models import ClothingItem, ClothingImage, ShippingAddress, Order, OrderItem, WishlistItem
 from .forms import ClothingItemForm, CustomLoginForm, CustomSignupForm, ShippingAddressForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages 
@@ -59,15 +59,27 @@ def item_list(request):
 def item_detail(request, item_id):
     item = get_object_or_404(ClothingItem, id=item_id)
 
-    # Filter similar items
-    similar_items = ClothingItem.objects.filter(
+    # Get all images for this item
+    images = ClothingImage.objects.filter(item=item)
+
+    # Get related items (same category and size, excluding current)
+    related_items = ClothingItem.objects.filter(
         category=item.category,
         size=item.size
-    ).exclude(id=item.id)[:4]  
+    ).exclude(id=item.id)[:4]
+
+    # Wishlist items (if authenticated)
+    wishlist_ids = []
+    if request.user.is_authenticated:
+        wishlist_ids = set(
+            WishlistItem.objects.filter(user=request.user).values_list('item_id', flat=True)
+        )
 
     return render(request, 'marketplace/item_detail.html', {
         'item': item,
-        'related_items': similar_items
+        'images': images,
+        'wishlist_ids': wishlist_ids,
+        'related_items': related_items
     })
 
 
@@ -246,3 +258,23 @@ def add_shipping_address(request):
         form = ShippingAddressForm()
 
     return render(request, 'marketplace/add_shipping_address.html', {'form': form})
+
+
+@login_required
+def wishlist_view(request):
+    wishlist_items = WishlistItem.objects.filter(user=request.user).select_related('item')
+    return render(request, 'marketplace/wishlist.html', {
+        'wishlist_items': wishlist_items
+    })
+
+
+@require_POST
+@login_required
+def toggle_wishlist(request, item_id):
+    item = get_object_or_404(ClothingItem, id=item_id)
+    wishlist_item, created = WishlistItem.objects.get_or_create(user=request.user, item=item)
+
+    if not created:
+        wishlist_item.delete()
+        return JsonResponse({'status': 'removed'})
+    return JsonResponse({'status': 'added'})
