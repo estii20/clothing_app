@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 <!-- Main Content -->
@@ -67,8 +68,8 @@
 
     <!-- Bottom Checkout Button -->
     <div class="left-0 right-0 p-4 bg-white border-t">
-    <button id="pay-now-btn"
-            class="bg-purple-600 text-white py-4 rounded-lg font-semibold flex items-center justify-center"
+    <button id="pay-now-btn" aria-label="Add this item to your shopping bag"
+            class="w-full bg-purple-600 text-white py-4 md:py-3 rounded-lg text-base md:text-lg font-semibold hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 transition"
             onclick="processPayment()" 
             aria-label="Pay securely">
         <span id="pay-now-text">Pay Now • ${{ cart_total }}</span>
