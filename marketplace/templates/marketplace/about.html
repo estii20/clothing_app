@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- About Hero Section -->
+<section id="about-hero" class="pt-20 bg-purple-50">
+    <div class="container mx-auto px-4 py-16">
+        <div class="text-center max-w-3xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">Our Story</h1>
+            <p class="text-gray-600 text-lg mb-8">We're making sustainable fashion accessible for growing families while building a community of conscious consumers.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Mission Section -->
+    <section id="mission" class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap items-center gap-12">
+                <div class="w-full lg:w-1/2">
+                    <img class="rounded-2xl" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/mission-image.jpg" alt="sustainable fashion concept with recycled clothes and happy families" >
+                </div>
+                <div class="w-full lg:w-5/12">
+                    <h2 class="text-3xl font-bold mb-6">Our Mission</h2>
+                    <p class="text-gray-600 mb-6">Founded in 2023, KidsSwap was born from a simple observation: kids grow fast, but their clothes still have lots of life left in them. We created a platform where parents can easily buy and sell pre-loved children's clothing, reducing waste and making quality clothing more affordable.</p>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-check text-purple-600"></i>
+                            <span>Promoting sustainable fashion choices</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-check text-purple-600"></i>
+                            <span>Building a community of conscious parents</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-check text-purple-600"></i>
+                            <span>Making quality clothing accessible to all</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">Meet Our Team</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div id="team-member-1" class="text-center">
+                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Sarah Johnson" class="w-32 h-32 rounded-full mx-auto mb-4">
+                    <h3 class="font-semibold text-xl mb-2">Sarah Johnson</h3>
+                    <p class="text-purple-600 mb-3">Founder & CEO</p>
+                    <p class="text-gray-600">Former sustainability consultant and mother of two</p>
+                </div>
+                <div id="team-member-2" class="text-center">
+                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Michael Chen" class="w-32 h-32 rounded-full mx-auto mb-4">
+                    <h3 class="font-semibold text-xl mb-2">Michael Chen</h3>
+                    <p class="text-purple-600 mb-3">Head of Operations</p>
+                    <p class="text-gray-600">Tech industry veteran with a passion for circular economy</p>
+                </div>
+                <div id="team-member-3" class="text-center">
+                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" alt="Emma Peters" class="w-32 h-32 rounded-full mx-auto mb-4">
+                    <h3 class="font-semibold text-xl mb-2">Emma Peters</h3>
+                    <p class="text-purple-600 mb-3">Community Manager</p>
+                    <p class="text-gray-600">Former fashion buyer and sustainable fashion advocate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact" class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">Our Impact</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div id="impact-1" class="bg-purple-50 rounded-xl p-8 text-center">
+                    <div class="text-4xl font-bold text-purple-600 mb-4">50K+</div>
+                    <h3 class="font-semibold mb-2">Items Resold</h3>
+                    <p class="text-gray-600">Giving pre-loved clothes a second life</p>
+                </div>
+                <div id="impact-2" class="bg-purple-50 rounded-xl p-8 text-center">
+                    <div class="text-4xl font-bold text-purple-600 mb-4">10K+</div>
+                    <h3 class="font-semibold mb-2">Active Members</h3>
+                    <p class="text-gray-600">Growing community of conscious parents</p>
+                </div>
+                <div id="impact-3" class="bg-purple-50 rounded-xl p-8 text-center">
+                    <div class="text-4xl font-bold text-purple-600 mb-4">15T</div>
+                    <h3 class="font-semibold mb-2">CO₂ Saved</h3>
+                    <p class="text-gray-600">Reducing fashion's environmental impact</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Section -->
+    <section id="join-community" class="py-16 bg-purple-600">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6 text-white">Join Our Community</h2>
+            <p class="text-purple-100 mb-8 max-w-2xl mx-auto">Be part of the sustainable fashion movement and help us create a better future for our children.</p>
+            <button class="bg-white text-purple-600 px-8 py-3 rounded-full hover:bg-gray-100">Get Started Today</button>
+        </div>
+    </section>
+{% endblock %}

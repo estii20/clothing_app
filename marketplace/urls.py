@@ -16,4 +16,5 @@ urlpatterns = [
     path('shipping-address/', views.add_shipping_address, name='add_shipping_address'),
     path('wishlist/', views.wishlist_view, name='wishlist'),
     path('wishlist/toggle/<int:item_id>/', views.toggle_wishlist, name='toggle_wishlist'),
+    path('about/', views.about_view, name='about'),
 ]
