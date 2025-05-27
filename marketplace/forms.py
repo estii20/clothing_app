@@ -6,7 +6,7 @@ from .models import ClothingItem, ShippingAddress
 class ClothingItemForm(forms.ModelForm):
     class Meta:
         model = ClothingItem
-        fields = ['title', 'description', 'price', 'category', 'condition', 'size', 'image', 'is_featured']
+        fields = ['title', 'age_group' , 'description', 'price', 'category', 'condition', 'size', 'image', 'is_featured']
 
 class CustomLoginForm(AuthenticationForm):
     username = forms.EmailField(widget=forms.EmailInput(attrs={
