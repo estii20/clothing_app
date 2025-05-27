@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="pt-20 bg-white">
+    <div class="container mx-auto px-4 py-16">
+        <div class="max-w-3xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">Shipping Information</h1>
+            <p class="text-gray-600 text-lg mb-8">Learn how shipping works when you buy or sell items on KidsSwap.</p>
+        </div>
+
+        <div class="max-w-4xl mx-auto space-y-8 text-gray-700">
+            <div>
+                <h2 class="text-2xl font-semibold mb-2">📦 Processing Time</h2>
+                <p>Items are typically processed and shipped within 2–3 business days after purchase. Sellers are responsible for packaging and shipping their sold items.</p>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-semibold mb-2">🚚 Shipping Methods</h2>
+                <p>We use standard shipping via USPS or UPS. Tracking information is provided once the item is shipped. Shipping rates are calculated based on weight and distance.</p>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-semibold mb-2">🌍 Shipping Areas</h2>
+                <p>Currently, we only support shipping within the United States. We’re working to expand to more regions soon!</p>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-semibold mb-2">🔄 Returns & Exchanges</h2>
+                <p>All sales are final. As a peer-to-peer platform, we encourage buyers to review listings and ask questions before purchasing. If an item is not as described, you can report the issue for resolution.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

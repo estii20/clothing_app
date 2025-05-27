@@ -282,3 +282,11 @@ def toggle_wishlist(request, item_id):
 
 def about_view(request):
     return render(request, 'marketplace/about.html')
+
+
+def shipping_view(request):
+    return render(request, 'marketplace/shipping.html')
+
+
+def returns_view(request):
+    return render(request, 'marketplace/returns.html')
