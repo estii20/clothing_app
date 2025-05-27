@@ -1,14 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.decorators.http import require_POST
-from .models import ClothingItem, ClothingImage, ShippingAddress
+from .models import ClothingItem, ClothingImage, ShippingAddress, Order, OrderItem
 from .forms import ClothingItemForm, CustomLoginForm, CustomSignupForm, ShippingAddressForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView
-import json
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 import json
@@ -140,26 +139,82 @@ def update_cart_quantity(request, item_id):
 
 
 @require_POST
-def process_payment(request):
-    # Simulate payment processing...
-    request.session['cart'] = {}  # Clear the cart
-    return redirect('order_confirmation')  # Name this URL in your urls.py
-
-
-def order_confirmation(request):
-    return render(request, 'marketplace/order_confirmation.html')
-
-
-@require_POST
+@login_required
 def process_payment(request):
     try:
         data = json.loads(request.body)
         if data.get('confirm'):
+            cart = request.session.get('cart', {})
+            if not cart:
+                return JsonResponse({'status': 'error', 'message': 'Cart is empty'}, status=400)
+
+            latest_address = ShippingAddress.objects.filter(user=request.user).last()
+            if not latest_address:
+                return JsonResponse({'status': 'error', 'message': 'No shipping address'}, status=400)
+
+            total_price = 0
+            order = Order.objects.create(
+                user=request.user,
+                shipping_address=latest_address,
+                total_price=0  # temporary value, to be updated below
+            )
+
+            for item_id, item_data in cart.items():
+                item = get_object_or_404(ClothingItem, id=item_id)
+                quantity = item_data['quantity']
+                price = item.price
+                total_price += price * quantity
+
+                OrderItem.objects.create(
+                    order=order,
+                    item=item,
+                    quantity=quantity,
+                    price=price
+                )
+
+            order.total_price = total_price  # set the actual total
+            order.save()
+
+            request.session['order_id'] = order.id
             request.session['cart'] = {}
+
             return JsonResponse({'status': 'ok'})
-    except Exception:
-        pass
-    return JsonResponse({'status': 'error'}, status=400)
+    except Exception as e:
+        print("Error in process_payment:", e)
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+
+
+@login_required
+def order_confirmation(request):
+    order_id = request.session.get('order_id')
+
+    if not order_id:
+        print("No order ID in session!")
+        return redirect('item_list')  # fallback if missing
+
+    try:
+        order = Order.objects.get(id=order_id, user=request.user)
+    except Order.DoesNotExist:
+        print("Order not found!")
+        return redirect('item_list')
+
+    return render(request, 'marketplace/order_confirmation.html', {
+        'order': order,
+        'shipping_address': order.shipping_address,
+        'items': order.items.all(),
+    })
+
+
+def calculate_cart_total(request):
+    cart = request.session.get('cart', {})
+    total = 0
+    for item_id, item_data in cart.items():
+        try:
+            item = ClothingItem.objects.get(id=item_id)
+            total += item.price * item_data['quantity']
+        except ClothingItem.DoesNotExist:
+            continue
+    return total
 
 
 @login_required

@@ -12,48 +12,22 @@
                     </div>
                     <h1 class="text-3xl font-bold mb-4">Order Confirmed!</h1>
                     <p class="text-gray-600 mb-8">
-                        Thank you for your purchase. Your order <strong>#{{ order_id|default:"KS25789" }}</strong> 
-                        has been successfully processed.
+                        Thank you for your purchase has been successfully processed.
                     </p>
                     
                     <!-- Order Summary -->
-                    <div id="order-summary" class="bg-gray-50 rounded-xl p-6 mb-8">
-                        <h2 class="font-semibold mb-4">Order Summary</h2>
-                        <div class="space-y-4">
-                            <div class="flex items-center justify-between">
-                                <span class="text-gray-600">Items Total</span>
-                                <span class="font-semibold">$90.96</span>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <span class="text-gray-600">Shipping</span>
-                                <span class="font-semibold">$4.99</span>
-                            </div>
-                            <div class="border-t pt-4">
-                                <div class="flex items-center justify-between">
-                                    <span class="font-semibold">Total</span>
-                                    <span class="font-bold text-purple-600">$95.95</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <p>Your order <strong>#{{ order.id }}</strong> has been successfully processed.</p>
 
-                    <!-- Shipping Details -->
-                    <div id="shipping-details" class="text-left bg-gray-50 rounded-xl p-6 mb-8">
-                        <h2 class="font-semibold mb-4">Shipping Details</h2>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <p class="text-gray-600 text-sm">Shipping To:</p>
-                                <p class="font-semibold">Sarah Johnson</p>
-                                <p>123 Main Street</p>
-                                <p>Apt 4B</p>
-                                <p>New York, NY 10001</p>
-                            </div>
-                            <div>
-                                <p class="text-gray-600 text-sm">Estimated Delivery:</p>
-                                <p class="font-semibold">March 15-17, 2025</p>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Loop through items -->
+                    {% for item in items %}
+                    <p>{{ item.item.title }} - Quantity: {{ item.quantity }} - ${{ item.get_total_price }}</p>
+                    {% endfor %}
+
+                    <!-- Show shipping address -->
+                    <p>Shipping to: {{ shipping_address.full_name }}, {{ shipping_address.address_line1 }}, 
+                        {{ shipping_address.city }}</p>
+
+
 
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
                         <span  class="bg-purple-600 text-white px-8 py-3 rounded-full hover:bg-purple-700 cursor-pointer">
