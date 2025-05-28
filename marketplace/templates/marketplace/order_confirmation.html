@@ -30,10 +30,12 @@
 
 
 
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <span  class="bg-purple-600 text-white px-8 py-3 rounded-full hover:bg-purple-700 cursor-pointer">
-                            Track Order</span>
-                        <a href="{% url 'item_list' %}" class="bg-gray-200 text-gray-700 px-8 py-3 rounded-full hover:bg-gray-300 cursor-pointer text-center">
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center pb-16">
+                        <a href="{% url 'track_order' order.id %}" class="inline-block bg-purple-600 text-white px-8 py-3 rounded-full hover:bg-purple-700 transition cursor-pointer">
+                            Track Order
+                        </a>
+                        <a href="{% url 'item_list' %}" 
+                        class="bg-gray-200 text-gray-700 px-8 py-3 rounded-full hover:bg-gray-300 cursor-pointer text-center">
                         Continue Shopping
                         </a>
                     </div>

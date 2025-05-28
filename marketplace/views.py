@@ -304,3 +304,8 @@ def contact_view(request):
         return redirect('contact')
 
     return render(request, 'marketplace/contact.html')
+
+
+def track_order(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    return render(request, 'marketplace/track_order.html', {'order': order})
