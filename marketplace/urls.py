@@ -20,4 +20,5 @@ urlpatterns = [
     path('shipping/', views.shipping_view, name='shipping'),
     path('returns/', views.returns_view, name='returns'),
     path('contact/', views.contact_view, name='contact'),
+    path('track-order/<int:order_id>/', views.track_order, name='track_order'),
 ]
