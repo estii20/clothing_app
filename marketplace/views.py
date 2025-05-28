@@ -290,3 +290,17 @@ def shipping_view(request):
 
 def returns_view(request):
     return render(request, 'marketplace/returns.html')
+
+
+def contact_view(request):
+    if request.method == 'POST':
+        # handle form submission logic here (email or save)
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+
+        # You can email this or store it in the database
+        messages.success(request, "Thanks for reaching out! We'll get back to you soon.")
+        return redirect('contact')
+
+    return render(request, 'marketplace/contact.html')

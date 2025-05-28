@@ -19,4 +19,5 @@ urlpatterns = [
     path('about/', views.about_view, name='about'),
     path('shipping/', views.shipping_view, name='shipping'),
     path('returns/', views.returns_view, name='returns'),
+    path('contact/', views.contact_view, name='contact'),
 ]
