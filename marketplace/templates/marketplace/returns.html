@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<section class="pt-20 bg-gray-50">
+<section class="pt-2 bg-gray-50">
     <div class="container mx-auto px-4 py-16">
         <div class="max-w-3xl mx-auto text-center">
             <h1 class="text-4xl md:text-5xl font-bold mb-6">Returns & Refunds</h1>
@@ -36,4 +36,56 @@
         </div>
     </div>
 </section>
+
+<!-- Collapsible FAQ Section -->
+<section class="bg-white py-16">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+    <div class="max-w-4xl mx-auto space-y-4" x-data="{ selected: null }">
+      
+      <div class="border rounded-lg p-4" x-data="{ open: false }">
+        <button class="flex justify-between w-full text-left text-xl font-semibold" @click="open = !open">
+          <span>How do I request a return?</span>
+          <i :class="open ? 'fa-chevron-up' : 'fa-chevron-down'" class="fa-solid text-purple-600"></i>
+        </button>
+        <div x-show="open" x-transition class="mt-2 text-gray-600">
+          Log in to your account, go to your orders, and use the "Report an Issue" button within 3 days of delivery. Provide photos and a description of the problem.
+        </div>
+      </div>
+
+      <div class="border rounded-lg p-4" x-data="{ open: false }">
+        <button class="flex justify-between w-full text-left text-xl font-semibold" @click="open = !open">
+          <span>Who pays for return shipping?</span>
+          <i :class="open ? 'fa-chevron-up' : 'fa-chevron-down'" class="fa-solid text-purple-600"></i>
+        </button>
+        <div x-show="open" x-transition class="mt-2 text-gray-600">
+          If the item is misrepresented or incorrect, the seller covers return shipping. Otherwise, returns are not accepted for buyer’s remorse or sizing errors.
+        </div>
+      </div>
+
+      <div class="border rounded-lg p-4" x-data="{ open: false }">
+        <button class="flex justify-between w-full text-left text-xl font-semibold" @click="open = !open">
+          <span>What if my return is denied?</span>
+          <i :class="open ? 'fa-chevron-up' : 'fa-chevron-down'" class="fa-solid text-purple-600"></i>
+        </button>
+        <div x-show="open" x-transition class="mt-2 text-gray-600">
+          Our support team investigates disputes fairly. If the return request is denied, the item is considered final sale unless otherwise resolved with the seller.
+        </div>
+      </div>
+
+      <div class="border rounded-lg p-4" x-data="{ open: false }">
+        <button class="flex justify-between w-full text-left text-xl font-semibold" @click="open = !open">
+          <span>Can I exchange instead of return?</span>
+          <i :class="open ? 'fa-chevron-up' : 'fa-chevron-down'" class="fa-solid text-purple-600"></i>
+        </button>
+        <div x-show="open" x-transition class="mt-2 text-gray-600">
+          Currently, we only offer refunds for approved return requests. Exchanges are not supported at this time, but you may repurchase a similar item from the platform.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
 {% endblock %}
