@@ -309,3 +309,38 @@ def contact_view(request):
 def track_order(request, order_id):
     order = get_object_or_404(Order, id=order_id)
     return render(request, 'marketplace/track_order.html', {'order': order})
+
+
+def search_view(request):
+    query = request.GET.get('q')
+    size = request.GET.get('size')
+    category = request.GET.get('category')
+    min_price = request.GET.get('min_price')
+    max_price = request.GET.get('max_price')
+
+    results = ClothingItem.objects.all()
+
+    if query:
+        results = results.filter(title__icontains=query)
+
+    if size:
+        results = results.filter(size=size)
+
+    if category:
+        results = results.filter(category=category)
+
+    if min_price:
+        results = results.filter(price__gte=min_price)
+
+    if max_price:
+        results = results.filter(price__lte=max_price)
+
+    context = {
+        'query': query,
+        'results': results,
+        'selected_size': size,
+        'selected_category': category,
+        'min_price': min_price,
+        'max_price': max_price,
+    }
+    return render(request, 'marketplace/search_results.html', context)
