@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.decorators.http import require_POST
 from .models import ClothingItem, ClothingImage, ShippingAddress, Order, OrderItem, WishlistItem
-from .forms import ClothingItemForm, CustomLoginForm, CustomSignupForm, ShippingAddressForm
+from .forms import ClothingItemForm, CustomLoginForm, CustomSignupForm, ShippingAddressForm, ClothingItemForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages 
 from django.contrib.auth.forms import UserCreationForm
@@ -22,11 +22,14 @@ def create_clothing_item(request):
             item.seller = request.user
             item.save()
 
-            # Handle multiple images uploaded from the 'images' input field (see template below)
+            # Save multiple uploaded images
             for img in request.FILES.getlist('images'):
                 ClothingImage.objects.create(item=item, image=img)
 
+            messages.success(request, "Your item has been listed successfully!")
             return redirect('item_detail', item_id=item.pk)
+        else:
+            messages.error(request, "Please correct the errors below.")
 
     else:
         item_form = ClothingItemForm()
@@ -87,6 +90,16 @@ class CustomLoginView(LoginView):
     authentication_form = CustomLoginForm
     template_name = 'registration/login.html'
 
+    def form_valid(self, form):
+        """Called when form is valid (login success)."""
+        messages.success(self.request, "You have successfully logged in.")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        """Called when form is invalid (login failure)."""
+        messages.error(self.request, "Login failed. Please check your email and password.")
+        return super().form_invalid(form)
+
 
 def signup_view(request):
     if request.method == "POST":
@@ -137,6 +150,7 @@ def add_to_cart(request, item_id):
     item_id = str(item_id)
     cart[item_id] = {'quantity': cart.get(item_id, {}).get('quantity', 0) + 1}
     request.session['cart'] = cart
+    messages.success(request, "Item added to cart.")
     return redirect('cart')
 
 
@@ -147,6 +161,9 @@ def remove_from_cart(request, item_id):
     if item_id in cart:
         del cart[item_id]
         request.session['cart'] = cart
+        messages.success(request, "Item removed from cart.")
+    else:
+        messages.warning(request, "Item not found in cart.")
     return redirect('cart')
 
 
@@ -159,9 +176,16 @@ def update_cart_quantity(request, item_id):
     if item_id in cart:
         if action == 'increase':
             cart[item_id]['quantity'] += 1
+            messages.success(request, "Item quantity increased.")
         elif action == 'decrease':
-            cart[item_id]['quantity'] = max(1, cart[item_id]['quantity'] - 1)
+            if cart[item_id]['quantity'] > 1:
+                cart[item_id]['quantity'] -= 1
+                messages.success(request, "Item quantity decreased.")
+            else:
+                messages.warning(request, "Minimum quantity is 1.")
         request.session['cart'] = cart
+    else:
+        messages.warning(request, "Item not found in cart.")
 
     return redirect('cart')
 
