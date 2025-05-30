@@ -68,20 +68,22 @@
 
     <!-- Bottom Checkout Button -->
     <div class="left-0 right-0 p-4 bg-white border-t">
-    <button id="pay-now-btn" aria-label="Add this item to your shopping bag"
-            class="w-full max-w-xs mx-auto bg-purple-600 text-white py-3 md:py-2 px-4 rounded-lg text-base md:text-sm font-medium hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 transition"
-            onclick="processPayment()" 
-            aria-label="Pay securely">
+      <button id="pay-now-btn"
+              class="w-full max-w-xs mx-auto bg-purple-600 text-white py-3 md:py-2 px-4 rounded-lg text-base md:text-sm font-medium hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 transition flex items-center justify-center gap-2"
+              onclick="processPayment()" 
+              aria-label="Pay securely">
+        
         <span id="pay-now-text">Pay Now • ${{ cart_total }}</span>
-        <svg id="pay-spinner" class="hidden ml-3 h-5 w-5 animate-spin text-white"
+        
+        <svg id="pay-spinner" class="hidden h-5 w-5 animate-spin text-white"
             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor"
-                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z">
-        </path>
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor"
+                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
         </svg>
-    </button>
+      </button>
     </div>
+
 
     <script>
     function processPayment() {

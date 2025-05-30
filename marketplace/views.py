@@ -287,6 +287,7 @@ def add_shipping_address(request):
 @login_required
 def wishlist_view(request):
     wishlist_items = WishlistItem.objects.filter(user=request.user).select_related('item')
+    messages.info(request, "Here are the items in your wishlist.")
     return render(request, 'marketplace/wishlist.html', {
         'wishlist_items': wishlist_items
     })
@@ -300,7 +301,10 @@ def toggle_wishlist(request, item_id):
 
     if not created:
         wishlist_item.delete()
+        messages.info(request, f"Removed '{item.title}' from your wishlist.")
         return JsonResponse({'status': 'removed'})
+    
+    messages.success(request, f"Added '{item.title}' to your wishlist.")
     return JsonResponse({'status': 'added'})
 
 
