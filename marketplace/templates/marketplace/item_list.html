@@ -44,9 +44,9 @@
                         by giving pre-loved clothes a second life.</p>
                     <div class="flex space-x-4">
                         <span  class="bg-purple-600 text-white px-8 py-3 rounded-full hover:bg-purple-700 cursor-pointer">
-                            Start Shopping</span>
+                            <a href="#featured-products">Start Shopping</a> </span>
                         <span  class="bg-gray-200 text-gray-700 px-8 py-3 rounded-full hover:bg-gray-300 cursor-pointer">
-                            Sell Items</span>
+                            <a href="{% url 'create_clothing_item' %}">Sell Items</a></span>
                     </div>
                 </div>
                 <div class="w-full lg:w-1/2">
@@ -92,7 +92,7 @@
     <!-- End Categories -->
 
     <!-- Featured Products -->
-    <div class="container mx-auto px-4 py-8">
+    <div class="container mx-auto px-4 py-8" id="featured-products">
     <h2 class="text-2xl font-bold mb-6">Browse Clothing</h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
