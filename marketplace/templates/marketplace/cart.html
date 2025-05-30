@@ -67,6 +67,8 @@
     </section>
 
     <!-- Bottom Checkout Button -->
+    {% if cart_items %}
+    <!-- Bottom Checkout Button -->
     <div class="left-0 right-0 p-4 bg-white border-t">
       <button id="pay-now-btn"
               class="w-full max-w-xs mx-auto bg-purple-600 text-white py-3 md:py-2 px-4 rounded-lg text-base md:text-sm font-medium hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 transition flex items-center justify-center gap-2"
@@ -83,7 +85,7 @@
         </svg>
       </button>
     </div>
-
+    {% endif %}
 
     <script>
     function processPayment() {
