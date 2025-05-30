@@ -10,9 +10,12 @@
             <div class="bg-white rounded-xl shadow-sm overflow-hidden">
                 <div class="relative">
                     <img class="w-full aspect-square object-cover" src="{{ item.image.url }}" alt="{{ item.title }}">
-                    <button class="absolute top-3 right-3 bg-white rounded-full p-2 shadow-sm">
-                        <i class="fa-regular fa-heart text-gray-600"></i>
-                    </button>
+                    <a href="#" onclick="toggleWishlist('{{ item.id }}')" class="absolute top-3 right-3 bg-white rounded-full p-2 shadow-sm">
+                    <i class="fa-solid fa-heart 
+                              {% if item.id in wishlist_ids %}text-red-500{% else %}text-gray-600{% endif %}" 
+                      id="wishlist-icon-{{ item.id }}">
+                    </i>
+                  </a>
                 </div>
             </div>
             <div class="bg-white p-6 rounded-xl shadow-sm">
