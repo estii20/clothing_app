@@ -25,20 +25,19 @@
                     {% endfor %}
 
                     <!-- Show shipping address -->
-                    <p>Shipping to: {{ shipping_address.full_name }}, {{ shipping_address.address_line1 }}, 
-                        {{ shipping_address.city }}</p>
+                <p>Shipping to: {{ shipping_address.full_name }}, {{ shipping_address.address_line1 }}, 
+                    {{ shipping_address.city }}</p>
 
-
-
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center pb-16">
-                        <a href="{% url 'track_order' order.id %}" class="inline-block bg-purple-600 text-white px-8 py-3 rounded-full hover:bg-purple-700 transition cursor-pointer">
-                            Track Order
-                        </a>
-                        <a href="{% url 'item_list' %}" 
-                        class="bg-gray-200 text-gray-700 px-8 py-3 rounded-full hover:bg-gray-300 cursor-pointer text-center">
-                        Continue Shopping
-                        </a>
-                    </div>
+                <!-- Add margin-top here -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mt-10 pb-16">
+                    <a href="{% url 'track_order' order.id %}" class="inline-block bg-purple-600 text-white px-8 py-3 rounded-full hover:bg-purple-700 transition cursor-pointer">
+                        Track Order
+                    </a>
+                    <a href="{% url 'item_list' %}" 
+                    class="bg-gray-200 text-gray-700 px-8 py-3 rounded-full hover:bg-gray-300 cursor-pointer text-center">
+                    Continue Shopping
+                    </a>
+                </div>
                 </div>
             </div>
         </div>
