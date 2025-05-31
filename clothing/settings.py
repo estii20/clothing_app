@@ -60,6 +60,9 @@ MIDDLEWARE = [
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'item_list'
+LOGOUT_REDIRECT_URL = 'item_list'
+
 
 ROOT_URLCONF = 'clothing.urls'
 

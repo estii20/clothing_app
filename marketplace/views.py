@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 import json
@@ -107,10 +107,17 @@ def signup_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
+            messages.success(request, "Signup successful. Welcome!")
             return redirect('item_list')
     else:
         form = CustomSignupForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+
+class CustomLogoutView(LogoutView):
+    def dispatch(self, request, *args, **kwargs):
+        messages.success(request, "You have successfully logged out.")
+        return super().dispatch(request, *args, **kwargs)
 
 
 def cart_view(request):

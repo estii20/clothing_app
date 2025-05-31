@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import create_clothing_item
+from .views import create_clothing_item, CustomLogoutView
 
 
 urlpatterns = [
@@ -22,4 +22,5 @@ urlpatterns = [
     path('contact/', views.contact_view, name='contact'),
     path('track-order/<int:order_id>/', views.track_order, name='track_order'),
     path('search/', views.search_view, name='search'),
+    path('logout/', CustomLogoutView.as_view(), name='logout'),
 ]
