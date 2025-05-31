@@ -96,11 +96,43 @@
                 {% endif %}
                 {% endwith %}
             </a>
+            <div x-data="{ open: false }" class="relative">
             {% if user.is_authenticated %}
-            <a href="#" class="text-gray-600 hover:text-purple-600">
+                <!-- User dropdown when logged in -->
+                <button @click="open = !open"
+                        class="flex items-center gap-2 text-gray-600 hover:text-purple-600 focus:outline-none"
+                        aria-label="User menu">
                 <i class="fa-solid fa-user"></i>
-            </a>
+                <span class="hidden sm:inline">{{ user.username }}</span>
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 9l-7 7-7-7" />
+                </svg>
+                </button>
+
+                <div x-show="open" @click.away="open = false"
+                    x-transition
+                    class="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit"
+                            class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    Logout
+                    </button>
+                </form>
+                </div>
+
+            {% else %}
+                <!-- Login link when logged out -->
+                <a href="{% url 'login' %}"
+                class="flex items-center gap-2 text-gray-600 hover:text-purple-600">
+                <i class="fa-solid fa-user"></i>
+                <span class="hidden sm:inline">Login</span>
+                </a>
             {% endif %}
+            </div>
+
+
             </div>
 
             <!-- Burger Button -->
