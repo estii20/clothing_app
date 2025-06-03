@@ -20,13 +20,8 @@ from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Load .env file from config/env
-env_path = os.path.join(BASE_DIR, 'config', 'env')
-config = Config(RepositoryEnv(env_path))
-
 # Access environment variables
 DEVELOPMENT = config('DEVELOPMENT', default=False, cast=bool)
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -38,7 +33,6 @@ SECRET_KEY = config('SECRET_KEY', default='your-default-secret-key-for-dev')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost', cast=lambda v: v.split(','))
-
 
 # Application definition
 
@@ -139,6 +133,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 
 # Default primary key field type
@@ -184,3 +179,6 @@ if not DEVELOPMENT:
         AWS_S3_FILE_OVERWRITE = False
     else:
         raise ValueError("AWS_STORAGE_BUCKET_NAME must be set in the environment.")
+
+if not DEVELOPMENT:
+    SECURE_SSL_REDIRECT = True
